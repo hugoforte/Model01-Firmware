@@ -89,10 +89,11 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+       MACRO_ANY,
+       GOES_TO
      };
 
-
+     
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
   * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
@@ -105,10 +106,10 @@ enum { MACRO_VERSION_INFO,
   * defined as part of the USB HID Keyboard specification. You can find the names
   * (if not yet the explanations) for all the standard `Key_` defintions offered by
   * Kaleidoscope in these files:
-  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_keyboard.h
-  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_consumerctl.h
-  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_sysctl.h
-  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_keymaps.h
+  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_keyboard.h
+  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_consumerctl.h
+  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_sysctl.h
+  *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_keymaps.h
   *
   * Additional things that should be documented here include
   *   using ___ to let keypresses fall through to the previously active layer
@@ -142,28 +143,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, NUMPAD, FUNCTION }; // layers
-
-
-/**
-  * To change your keyboard's layout from QWERTY to DVORAK or COLEMAK, comment out the line
-  *
-  * #define PRIMARY_KEYMAP_QWERTY
-  *
-  * by changing it to
-  *
-  * // #define PRIMARY_KEYMAP_QWERTY
-  *
-  * Then uncomment the line corresponding to the layout you want to use.
-  *
-  */
-
-#define PRIMARY_KEYMAP_QWERTY
-// #define PRIMARY_KEYMAP_COLEMAK
-// #define PRIMARY_KEYMAP_DVORAK
-// #define PRIMARY_KEYMAP_CUSTOM
-
-
+enum { PRIMARY, NUMPAD, FUNCTION, SELECTS }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -171,81 +151,21 @@ enum { PRIMARY, NUMPAD, FUNCTION }; // layers
 // *INDENT-OFF*
 
 KEYMAPS(
-
-#if defined (PRIMARY_KEYMAP_QWERTY)
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
-                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
-   Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_DVORAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),   Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(NUMPAD),
-   Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                   Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_COLEMAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_G, Key_Tab,
-   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_D,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
-                  Key_H, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   Key_RightAlt,  Key_K, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_CUSTOM)
   // Edit this keymap to make a custom layout
   [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+  (Key_Escape,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
+   Key_Home,   Key_A, Key_S, Key_D, Key_F, Key_G,
+   Key_End, Key_Z, Key_X, Key_C, Key_V, Key_B,  M(GOES_TO),
+   ShiftToLayer(FUNCTION), Key_Backspace, Key_LeftAlt, Key_LeftGui,
+   Key_LeftControl,
 
    M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
-   Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#else
-
-#error "No default keymap defined. You should make sure that you have a line like '#define PRIMARY_KEYMAP_QWERTY' in your sketch"
-
-#endif
-
-
+   LCTRL(LALT(Key_Delete)),  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   Key_RightShift, Key_LeftAlt, Key_Spacebar, ShiftToLayer(SELECTS),
+   Key_RightShift),
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
@@ -263,17 +183,32 @@ KEYMAPS(
    ___),
 
   [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
+  (___,      ___,           ___,      ___,     ___,        ___,           Key_CapsLock,
    Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
    Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
    Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
    ___,
 
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+   Consumer_ScanPreviousTrack, ___,                 ___,                   ___,                   Key_LeftParen,          Key_RightParen,          Key_F11,
    Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
                                Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
    Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
+   ___, ___, Key_Enter, ___,
+   ___),
+   
+  [SELECTS] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, Key_F5, Key_F10, Key_F11, LSHIFT(Key_F11),
+   ___, ___, ___, ___, ___, LCTRL(LSHIFT(Key_B)), ___,
+   ___, ___, ___, ___,
+   ___,
+
+   Consumer_ScanPreviousTrack, Key_F6,                        Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+   Consumer_PlaySlashPause,    LSHIFT(Key_DownArrow),        LCTRL(Key_LeftArrow),     LCTRL(Key_RightArrow),    LSHIFT(Key_UpArrow), Key_RightBracket, Key_F12,
+                               LCTRL(LSHIFT(Key_LeftArrow)),  LSHIFT(Key_LeftArrow),    LSHIFT(Key_RightArrow),  LCTRL(LSHIFT(Key_RightArrow)),       ___,              ___,
+   Key_PcApplication,          Consumer_Mute,                 Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
    ___, ___, Key_Enter, ___,
    ___)
 ) // KEYMAPS(
@@ -305,12 +240,27 @@ static void anyKeyMacro(uint8_t keyState) {
   static Key lastKey;
   bool toggledOn = false;
   if (keyToggledOn(keyState)) {
-    lastKey.setKeyCode(Key_A.getKeyCode() + (uint8_t)(millis() % 36));
+    lastKey.keyCode = Key_A.keyCode + (uint8_t)(millis() % 36);
     toggledOn = true;
   }
 
   if (keyIsPressed(keyState))
-    Kaleidoscope.hid().keyboard().pressKey(lastKey, toggledOn);
+    kaleidoscope::hid::pressKey(lastKey, toggledOn);
+}
+
+
+/** anyKeyMacro is used to provide the functionality of the 'Any' key.
+ *
+ * types out " => "
+ *
+ */
+
+static void goesTo(uint8_t keyState) {
+  static Key lastKey;
+  bool toggledOn = false;
+  if (keyToggledOn(keyState)) {
+    Macros.type(PSTR(" => "));
+  }
 }
 
 
@@ -336,7 +286,12 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   case MACRO_ANY:
     anyKeyMacro(keyState);
     break;
+
+  case GOES_TO:
+    goesTo(keyState);
+    break;
   }
+  
   return MACRO_NONE;
 }
 
@@ -361,10 +316,13 @@ static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 void toggleLedsOnSuspendResume(kaleidoscope::plugin::HostPowerManagement::Event event) {
   switch (event) {
   case kaleidoscope::plugin::HostPowerManagement::Suspend:
-    LEDControl.disable();
+    LEDControl.set_all_leds_to({0, 0, 0});
+    LEDControl.syncLeds();
+    LEDControl.paused = true;
     break;
   case kaleidoscope::plugin::HostPowerManagement::Resume:
-    LEDControl.enable();
+    LEDControl.paused = false;
+    LEDControl.refreshAll();
     break;
   case kaleidoscope::plugin::HostPowerManagement::Sleep:
     break;
@@ -543,7 +501,7 @@ void setup() {
 
   // The LED Stalker mode has a few effects. The one we like is called
   // 'BlazingTrail'. For details on other options, see
-  // https://github.com/keyboardio/Kaleidoscope/blob/master/docs/plugins/LED-Stalker.md
+  // https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/LED-Stalker.md
   StalkerEffect.variant = STALKER(BlazingTrail);
 
   // We want to make sure that the firmware starts with LED effects off
