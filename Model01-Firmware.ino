@@ -183,12 +183,13 @@ KEYMAPS(
    ___),
 
   [FUNCTION] =  KEYMAP_STACKED
-  (___,      ___,           ___,      ___,     ___,        ___,           Key_CapsLock,
-   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   ___, Key_Delete, ___, ___,
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
    ___,
+   
 
    Consumer_ScanPreviousTrack, ___,                 ___,                   ___,                   Key_LeftParen,          Key_RightParen,          Key_F11,
    Consumer_PlaySlashPause,    Key_LeftCurlyBracket, Key_RightCurlyBracket,     Key_UpArrow,    Key_LeftBracket, Key_RightBracket, Key_F12,
