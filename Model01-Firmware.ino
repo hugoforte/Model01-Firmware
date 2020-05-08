@@ -188,14 +188,14 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
-   ___,
-   
+   Key_RightShift,
 
+   
    Consumer_ScanPreviousTrack, ___,                 ___,                   ___,                   Key_LeftParen,          Key_RightParen,          Key_F11,
    Consumer_PlaySlashPause,    Key_LeftCurlyBracket, Key_RightCurlyBracket,     Key_UpArrow,    Key_LeftBracket, Key_RightBracket, Key_F12,
                                ___,          Key_LeftArrow,            Key_DownArrow,              Key_RightArrow,  Key_LeftBracket,              Key_RightBracket,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
-   ___, ___, Key_Enter, ___,
+   ___,___,___, LSHIFT(Key_Comma), LSHIFT(Key_Period),  Key_Backslash,    Key_Pipe,
+   ___, ___, Key_LeftBracket, Key_RightBracket,
    ___),
    
   [SELECTS] =  KEYMAP_STACKED
@@ -203,7 +203,7 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, Key_F5, Key_F10, Key_F11, LSHIFT(Key_F11),
    ___, ___, ___, ___, ___, LCTRL(LSHIFT(Key_B)), ___,
-   ___, ___, ___, ___,
+   Consumer_Mute, Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_PcApplication,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,                        Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
@@ -211,7 +211,7 @@ KEYMAPS(
                                ___,  LCTRL(LSHIFT(Key_LeftArrow)),    LSHIFT(Key_DownArrow),  LCTRL(LSHIFT(Key_RightArrow)),       ___,              ___,
    Key_PcApplication,          Consumer_Mute,                 Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
    ___, ___, Key_Enter, ___,
-   ___)
+   Key_LeftControl)
 ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
