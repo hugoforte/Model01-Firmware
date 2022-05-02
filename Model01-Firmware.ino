@@ -1,9 +1,7 @@
 // -*- mode: c++ -*-
-// Copyright 2016 Keyboardio, inc. <jesse@keyboard.io>
-// See "LICENSE" for license details
 
 #ifndef BUILD_INFORMATION
-#define BUILD_INFORMATION "locally built"
+#define BUILD_INFORMATION "locally built by Hugo Forte 5/2/2022"
 #endif
 
 
@@ -169,11 +167,11 @@ KEYMAPS(
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
+   ___, Key_1, Key_2, ___, Key_3, Key_4, ___,
+   ___, ___, ___, ___, ___, Key_5,
    ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+   Key_Spacebar, Key_Spacebar, ___, Key_LeftControl,
+   Key_RightShift,
 
    M(MACRO_VERSION_INFO),  ___, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, ___,
    ___,                    ___, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      ___,
@@ -195,7 +193,7 @@ KEYMAPS(
    Consumer_PlaySlashPause,    Key_LeftCurlyBracket, Key_RightCurlyBracket,     Key_UpArrow,    Key_LeftBracket, Key_RightBracket, Key_F12,
                                ___,          Key_LeftArrow,            Key_DownArrow,              Key_RightArrow,  Key_LeftBracket,              Key_RightBracket,
    ___,___,___, LSHIFT(Key_Comma), LSHIFT(Key_Period),  Key_Backslash,    Key_Pipe,
-   ___, ___, Key_LeftBracket, Key_RightBracket,
+   Key_Pipe, LSHIFT(Key_7), Key_LeftBracket, Key_RightBracket,
    ___),
    
   [SELECTS] =  KEYMAP_STACKED
@@ -236,19 +234,12 @@ static void versionInfoMacro(uint8_t keyState) {
  * keypress event repeating that randomly selected key.
  *
  */
-
-static void anyKeyMacro(uint8_t keyState) {
-  static Key lastKey;
-  bool toggledOn = false;
-  if (keyToggledOn(keyState)) {
-    lastKey.keyCode = Key_A.keyCode + (uint8_t)(millis() % 36);
-    toggledOn = true;
+static void anyKeyMacro(KeyEvent &event) {
+  if (keyToggledOn(event.state)) {
+    event.key.setKeyCode(Key_A.getKeyCode() + (uint8_t)(millis() % 36));
+    event.key.setFlags(0);
   }
-
-  if (keyIsPressed(keyState))
-    kaleidoscope::hid::pressKey(lastKey, toggledOn);
 }
-
 
 /** anyKeyMacro is used to provide the functionality of the 'Any' key.
  *
@@ -256,10 +247,10 @@ static void anyKeyMacro(uint8_t keyState) {
  *
  */
 
-static void goesTo(uint8_t keyState) {
+static void goesTo(KeyEvent &event) {
   static Key lastKey;
   bool toggledOn = false;
-  if (keyToggledOn(keyState)) {
+  if (keyToggledOn(event.state)) {
     Macros.type(PSTR(" => "));
   }
 }
@@ -277,20 +268,20 @@ static void goesTo(uint8_t keyState) {
 
  */
 
-const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
-  switch (macroIndex) {
+const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
+  switch (macro_id) {
 
-  case MACRO_VERSION_INFO:
-    versionInfoMacro(keyState);
-    break;
-
-  case MACRO_ANY:
-    anyKeyMacro(keyState);
-    break;
-
-  case GOES_TO:
-    goesTo(keyState);
-    break;
+    case MACRO_VERSION_INFO:
+      versionInfoMacro(event.state);
+      break;
+  
+    case MACRO_ANY:
+      anyKeyMacro(event);
+      break;
+  
+    case GOES_TO:
+      goesTo(event);
+      break;
   }
   
   return MACRO_NONE;
@@ -317,13 +308,10 @@ static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 void toggleLedsOnSuspendResume(kaleidoscope::plugin::HostPowerManagement::Event event) {
   switch (event) {
   case kaleidoscope::plugin::HostPowerManagement::Suspend:
-    LEDControl.set_all_leds_to({0, 0, 0});
-    LEDControl.syncLeds();
-    LEDControl.paused = true;
+    LEDControl.disable();
     break;
   case kaleidoscope::plugin::HostPowerManagement::Resume:
-    LEDControl.paused = false;
-    LEDControl.refreshAll();
+    LEDControl.enable();
     break;
   case kaleidoscope::plugin::HostPowerManagement::Sleep:
     break;
