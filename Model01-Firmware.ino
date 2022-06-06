@@ -166,13 +166,21 @@ KEYMAPS(
    Key_RightShift),
 
   [NUMPAD] =  KEYMAP_STACKED
+  /* World of warcraft bindings  
+  *(
+  * ___, ___, ___, ___, ___, ___, ___,
+  * ___, Key_1, Key_2, ___, Key_3, Key_4, ___,
+  * ___, ___, ___, ___, ___, Key_5,
+  * ___, ___, ___, ___, ___, ___, ___,
+  * Key_Spacebar, Key_Spacebar, ___, Key_LeftControl,
+  * Key_RightShift,
+  */
   (___, ___, ___, ___, ___, ___, ___,
-   ___, Key_1, Key_2, ___, Key_3, Key_4, ___,
-   ___, ___, ___, ___, ___, Key_5,
    ___, ___, ___, ___, ___, ___, ___,
-   Key_Spacebar, Key_Spacebar, ___, Key_LeftControl,
-   Key_RightShift,
-
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
    M(MACRO_VERSION_INFO),  ___, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, ___,
    ___,                    ___, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      ___,
                            ___, Key_1, Key_2,      Key_3,              Key_Equals,         ___,
@@ -186,7 +194,7 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
-   Key_RightShift,
+   ___,
 
    
    Consumer_ScanPreviousTrack, ___,                 ___,                   ___,                   Key_LeftParen,          Key_RightParen,          Key_F11,
