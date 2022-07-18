@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 #ifndef BUILD_INFORMATION
-#define BUILD_INFORMATION "locally built by Hugo Forte 5/2/2022"
+#define BUILD_INFORMATION "locally built by Hugo Forte 7/18/2022"
 #endif
 
 
@@ -209,7 +209,7 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, Key_F5, Key_F10, Key_F11, LSHIFT(Key_F11),
    ___, ___, ___, ___, ___, LCTRL(LSHIFT(Key_B)), ___,
-   Consumer_Mute, Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_PcApplication,
+   Consumer_Mute, Key_Delete, Consumer_VolumeDecrement, Consumer_VolumeIncrement,
    ___,
 
    Consumer_ScanPreviousTrack, Key_F6,                        Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
